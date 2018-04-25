@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
+  Image,
   Text,
   View
 } from 'react-native';
@@ -22,7 +23,14 @@ const instructions = Platform.select({
 });
 
 type Props = {};
+
 export default class App extends Component<Props> {
+  constructor(props) {
+    super(props)
+    this.state={
+      selectedTab: 'home'
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -30,20 +38,19 @@ export default class App extends Component<Props> {
           <TabNavigator.Item
             selected={this.state.selectedTab === 'home'}
             title="Home"
-            renderIcon={() => <Image source={...} />}
-            renderSelectedIcon={() => <Image source={...} />}
+            renderIcon={() => <Image source={require('./res/images/ic_polular.png')} />}
+            renderSelectedIcon={() => <Image source={require('./res/images/ic_polular.png')} />}
             badgeText="1"
             onPress={() => this.setState({ selectedTab: 'home' })}>
-          {homeView}
+            <View style={styles.page1}></View>
           </TabNavigator.Item>
           <TabNavigator.Item
             selected={this.state.selectedTab === 'profile'}
             title="Profile"
-            renderIcon={() => <Image source={...} />}
-            renderSelectedIcon={() => <Image source={...} />}
-            renderBadge={() => <CustomBadgeView />}
+            renderIcon={() => <Image source={require('./res/images/ic_trending.png')} />}
+            renderSelectedIcon={() => <Image source={require('./res/images/ic_trending.png')} />}
             onPress={() => this.setState({ selectedTab: 'profile' })}>
-            {profileView}
+          <View style={styles.page2}></View>
         </TabNavigator.Item>
         </TabNavigator>
       </View>
@@ -54,18 +61,14 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  page1: {
+    flex: 1,
+    backgroundColor: '#c33',
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  page1: {
+    flex: 1,
+    backgroundColor: '#666',
+  }
 });
