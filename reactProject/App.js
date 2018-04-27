@@ -2,6 +2,7 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  * @flow
+ * Navigator传两个参数,一个initialRoute和renderScene(route,navigator)
  */
 
 import React, { Component } from 'react';
@@ -13,7 +14,10 @@ import {
   View
 } from 'react-native';
 
+import {Navigator} from "react-native-deprecated-custom-components"
+
 import TabNavigator from 'react-native-tab-navigator'
+import Boy from './js/boy'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -34,7 +38,7 @@ export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <TabNavigator>
+       {/* <TabNavigator>
           <TabNavigator.Item
             selected={this.state.selectedTab === 'tb_popular'}
             title="最热"
@@ -68,7 +72,17 @@ export default class App extends Component<Props> {
               onPress={() => this.setState({ selectedTab: 'tb_my' })}>
             <View style={styles.page2}></View>
           </TabNavigator.Item>
-        </TabNavigator>
+        </TabNavigator>*/}
+        <Navigator
+          initialRoute={{
+            component: Boy
+          }}
+          renderScene={(route, navigator) => {
+            let Component = route.component;
+            return <Component navigator={navigator} {...route.params}/>
+          }}
+        >
+        </Navigator>
       </View>
     );
   }
