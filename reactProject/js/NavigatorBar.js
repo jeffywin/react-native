@@ -37,7 +37,7 @@ export default class NavigationBar extends Component {
     let titleView = this.props.titleView ? this.props.titleView : <Text style={styles.title}>{this.props.title}</Text>
     let content = <View style={styles.navBar}>
       {this.props.leftButton}
-      <View style={styles.titleViewContainer}>
+      <View style={styles.navBarTitleContainer}>
         {titleView}
       </View>
       {this.props.rightButton}
@@ -53,6 +53,7 @@ export default class NavigationBar extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'gray',
+
   },
   navBar: {
     flexDirection: 'row',
