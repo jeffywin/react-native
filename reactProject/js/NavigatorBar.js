@@ -9,12 +9,18 @@ import {
   Text,
   Image,
   StyleSheet,
-  Platform
+  Platform,
+  StatusBar,
 } from 'react-native';
 
-const NAV_BAR_HEIGHT_ANDROID = 45;
+const NAV_BAR_HEIGHT_ANDROID = 50;
 const NAV_BAR_HEIGHT_IOS = 44;
 const STATUS_BAR_HEIGHT = 20;
+const statusBarShape = {
+  backgroundColor: PropTypes.string,
+  barStyle: PropTypes.oneOf(['default', 'light-content', 'dark-content']),
+  hidden: PropTypes.bool,
+}
 
 export default class NavigationBar extends Component {
   static propTypes = {
@@ -24,6 +30,14 @@ export default class NavigationBar extends Component {
     hidden: PropTypes.bool,
     leftButton: PropTypes.element,
     rightButton: PropTypes.element,
+    statusBar: PropTypes.shape(statusBarShape)
+  }
+
+  static defaultProps = {
+    statusBar: {
+      barStyle: 'light-content',
+      hidden: false
+    }
   }
   constructor(props) {
     super(props);
@@ -34,6 +48,9 @@ export default class NavigationBar extends Component {
   }
 
   render() {
+    let status = <View style={[styles.statusBar, this.props.statusBar]}>
+      <StatusBar {...this.props.statusBar}/>
+    </View>
     let titleView = this.props.titleView ? this.props.titleView : <Text style={styles.title}>{this.props.title}</Text>
     let content = <View style={styles.navBar}>
       {this.props.leftButton}
@@ -44,6 +61,7 @@ export default class NavigationBar extends Component {
     </View>
     return(
       <View style={styles.container}>
+        {status}
         {content}
       </View>
     )
@@ -52,8 +70,7 @@ export default class NavigationBar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'gray',
-
+    backgroundColor: '#c33',
   },
   navBar: {
     flexDirection: 'row',
@@ -77,4 +94,7 @@ const styles = StyleSheet.create({
   navBarButton: {
     alignItems: 'center',
   },
+  statusBar: {
+    height: Platform.OS === 'ios' ? STATUS_BAR_HEIGHT : 0,
+  }
 })
