@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet,
   ListView,
+  Image,
   TouchableOpacity
 } from 'react-native';
 
@@ -108,6 +109,14 @@ export default class ListViewText extends React.Component {
     )
   }
 
+  renderFooter() {
+    return <View>
+      <Image
+        style={{width: 300, height: 100}}
+        source={{uri: 'https://images.gr-assets.com/hostedimages/1406479536ra/10555627.gif'}}/>
+    </View>
+  }
+
   render() {
     return(
       <View style={styles.container}>
@@ -115,6 +124,7 @@ export default class ListViewText extends React.Component {
           dataSource={this.state.dataSource}
           renderRow={(item) => this.renderRow(item)}
           renderSeparator={(sectionID, rowID, adjacentRowHighlighted) => this.renderSeparator(sectionID, rowID, adjacentRowHighlighted)}
+          renderFooter={()=>this.renderFooter()}
         ></ListView>
         <Toast ref={toast => {this.toast = toast}}/>
       </View>
