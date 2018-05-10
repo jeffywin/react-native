@@ -4,10 +4,12 @@ import {
   View,
   Text,
   StyleSheet,
-  ListView
+  ListView,
+  TouchableOpacity
 } from 'react-native';
 
 import NavigationBar from './NavigatorBar'
+import Toast,{DURATION} from 'react-native-easy-toast'
 
 var data = {
   "result": [
@@ -88,22 +90,52 @@ export default class ListViewText extends React.Component {
   }
   renderRow(item) {
     return(
-      <View>
-        <Text>{item.email}</Text>
-        <Text>{item.fullName}</Text>
+    <TouchableOpacity
+      onPress={() => {
+        this.toast.show(item.fullName,DURATION.LENGTH_LONG)
+      }}
+    >
+      <View style={styles.lists}>
+        <Text style={styles.item}>{item.email}</Text>
+        <Text style={styles.item}>{item.fullName}</Text>
       </View>
+    </TouchableOpacity>
+    )
+  }
+  renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
+    return(
+      <View style={styles.line}></View>
     )
   }
 
   render() {
     return(
-      <View>
+      <View style={styles.container}>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={(item) => this.renderRow(item)}
+          renderSeparator={(sectionID, rowID, adjacentRowHighlighted) => this.renderSeparator(sectionID, rowID, adjacentRowHighlighted)}
         ></ListView>
+        <Toast ref={toast => {this.toast = toast}}/>
       </View>
     )
   }
-
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff'
+  },
+  lists: {
+    height: 45,
+    padding: 8
+  },
+  item: {
+    fontSize: 16
+  },
+  line: {
+    height: 1,
+    backgroundColor: '#000',
+    marginTop: 4
+  }
+})
