@@ -1,3 +1,5 @@
+//RefreshControl 组件
+
 import React from 'react'
 
 import {
@@ -6,7 +8,8 @@ import {
   StyleSheet,
   ListView,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  RefreshControl
 } from 'react-native';
 
 import NavigationBar from './NavigatorBar'
@@ -84,9 +87,11 @@ export default class ListViewText extends React.Component {
       rowHasChanged: (r1, r2)=> {
         r1 !== r2
       }
+      this.onload()
     });
     this.state = {
-      dataSource: ds.cloneWithRows(data.result)
+      dataSource: ds.cloneWithRows(data.result),
+      isLoading: true
     }
   }
   renderRow(item) {
@@ -109,6 +114,14 @@ export default class ListViewText extends React.Component {
     )
   }
 
+  onload() {
+    setTimeout(() => {
+      this.setState({
+        isLoading: false
+      })
+    }, 2000)
+  }
+
   renderFooter() {
     return <View>
       <Image
@@ -125,6 +138,10 @@ export default class ListViewText extends React.Component {
           renderRow={(item) => this.renderRow(item)}
           renderSeparator={(sectionID, rowID, adjacentRowHighlighted) => this.renderSeparator(sectionID, rowID, adjacentRowHighlighted)}
           renderFooter={()=>this.renderFooter()}
+          refreshcontrol={<RefreshControl
+            refreshing={this.state.isLoading}
+            onRefresh={() => this.onload()}
+            />}
         ></ListView>
         <Toast ref={toast => {this.toast = toast}}/>
         {/*当Toast组件被渲染的时候,将toast赋值给this.toast,Toast显示提示信息*/}
