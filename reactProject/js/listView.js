@@ -144,7 +144,7 @@ export default class ListViewText extends React.Component {
             />}
         ></ListView>
         <Toast ref={toast => {this.toast = toast}}/>
-        {/*当Toast组件被渲染的时候,将toast赋值给this.toast,Toast显示提示信息*/}
+        {/*当Toast组件被渲染的时候,将toast赋值this.toast,Toast显示提示信息*/}
       </View>
     )
   }
