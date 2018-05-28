@@ -87,7 +87,7 @@ export default class ListViewText extends React.Component {
       rowHasChanged: (r1, r2)=> {
         r1 !== r2
       }
-      this.onload()
+      //this.onload()
     });
     this.state = {
       dataSource: ds.cloneWithRows(data.result),
