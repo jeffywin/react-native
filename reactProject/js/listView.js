@@ -83,14 +83,14 @@ var data = {
 export default class ListViewText extends React.Component {
   constructor(props) {
     super(props);
-    const ds = new ListView.DataSource({
+    const ds = new ListView.DataSource({//当上一行数据和下一行数据不相等的时候渲染数据
       rowHasChanged: (r1, r2)=> {
         r1 !== r2
       }
       //this.onload()
     });
     this.state = {
-      dataSource: ds.cloneWithRows(data.result),
+      dataSource: ds.cloneWithRows(data.result),//listView的数据源
       isLoading: true
     }
   }

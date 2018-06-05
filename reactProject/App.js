@@ -77,7 +77,7 @@ export default class App extends Component<Props> {
           initialRoute={{
             component: Boy
           }}
-          renderScene={(route, navigator) => {
+          renderScene={(route, navigator) => {//navigator可选参数，提供从父导航器获得的导航器对象
             let Component = route.component;
             return <Component navigator={navigator} {...route.params}/>
           }}
