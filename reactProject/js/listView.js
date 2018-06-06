@@ -87,12 +87,12 @@ export default class ListViewText extends React.Component {
       rowHasChanged: (r1, r2)=> {
         r1 !== r2
       }
-      //this.onload()
     });
     this.state = {
       dataSource: ds.cloneWithRows(data.result),//listView的数据源
-      isLoading: true
+      isLoading: true,
     }
+    this.onLoad();
   }
   renderRow(item) {
     return(
@@ -110,22 +110,22 @@ export default class ListViewText extends React.Component {
   }
   renderSeparator(sectionID, rowID, adjacentRowHighlighted) {
     return(
-      <View style={styles.line}></View>
+      <View key={rowID} style={styles.line}></View>
     )
   }
 
-  onload() {
+  onLoad() {
     setTimeout(() => {
       this.setState({
         isLoading: false
       })
-    }, 2000)
+    }, 1000)
   }
 
   renderFooter() {
     return <View>
       <Image
-        style={{width: 300, height: 100}}
+        style={{width: 300, height: 50}}
         source={{uri: 'https://images.gr-assets.com/hostedimages/1406479536ra/10555627.gif'}}/>
     </View>
   }
@@ -135,16 +135,16 @@ export default class ListViewText extends React.Component {
       <View style={styles.container}>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(item) => this.renderRow(item)}
+          renderRow={(item) => this.renderRow(item)}//每一行返回的视图  renderSeparator 渲染行与行之间分割的视图
           renderSeparator={(sectionID, rowID, adjacentRowHighlighted) => this.renderSeparator(sectionID, rowID, adjacentRowHighlighted)}
           renderFooter={()=>this.renderFooter()}
-          refreshcontrol={<RefreshControl
+          refreshcontrol={<RefreshControl//为ListView提供下拉刷新
             refreshing={this.state.isLoading}
-            onRefresh={() => this.onload()}
+            onRefresh={() => this.onLoad()}
             />}
         ></ListView>
         <Toast ref={toast => {this.toast = toast}}/>
-        {/*当Toast组件被渲染的时候,将toast赋值this.toast,Toast显示提示信息*/}
+        {/*react-native-easy-toast 提示组件 当Toast组件被渲染的时候,将toast赋值this.toast,Toast显示提示信息*/}
       </View>
     )
   }
