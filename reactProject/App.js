@@ -18,6 +18,7 @@ import {Navigator} from "react-native-deprecated-custom-components"
 
 import TabNavigator from 'react-native-tab-navigator'
 import FetchTest from './js/fetchTest'
+import setUp from './js/pages/setUp'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -75,7 +76,7 @@ export default class App extends Component<Props> {
         </TabNavigator>*/}
         <Navigator
           initialRoute={{
-            component: FetchTest
+            component: setUp
           }}
           renderScene={(route, navigator) => {//navigator可选参数，提供从父导航器获得的导航器对象
             let Component = route.component;

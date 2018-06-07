@@ -8,6 +8,7 @@ import {
   StyleSheet
 } from 'react-native';
 import NavigationBar from './NavigatorBar'
+import HttpUtils from './HttpUtils'
 
 export default class Boy extends React.Component {
   constructor(props) {
@@ -18,19 +19,33 @@ export default class Boy extends React.Component {
   }
 
   getData(url) {
-    fetch(url)
-      .then(response => response.json())
-      .then(result => {
+    HttpUtils.get(url)
+      .then(result=>{
         this.setState({
           result: JSON.stringify(result)
         })
       })
-      .catch(error => {
+      .catch(error=> {
         this.setState({
           result: JSON.stringify(error)
         })
       })
   }
+
+  submit(url, data) {
+    HttpUtils.post(url,data)
+      .then(result=>{
+        this.setState({
+          result: JSON.stringify(result)
+        })
+      })
+      .catch(error=> {
+        this.setState({
+          result: JSON.stringify(error)
+        })
+      })
+  }
+
   render() {
     return(
       <View style={styles.container}>
@@ -42,7 +57,9 @@ export default class Boy extends React.Component {
           onPress={() => {this.getData('http://rapapi.org/mockjsdata/34682/getData')}}
         >获取数据</Text>
         <Text>返回数据:{this.state.result}</Text>
-        <Text>发送数据</Text>
+        <Text
+          onPress={() => {this.submit('http://rapapi.org/mockjsdata/34682/submit',{userName:'小明',password:'123456'})}}
+        >发送数据</Text>
       </View>
     )
   }
