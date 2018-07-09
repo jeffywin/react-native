@@ -6,36 +6,33 @@ import {
     TextInput
 } from 'react-native';
 import NavigatorBar from '../NavigatorBar'
-import ScrollableTabView,{ScrollableTabBar} from 'react-native-scrollable-tab-view'
+import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 import DataRespon from '../expand/DataRespository'
 const URL = 'https://api.github.com/search/repositories?q='
 const QUREY_STR='&sort=stars'
 
 export default class PopularPage extends React.Component {
-	constructor(props) {
-		super(props);
-		this.DataRespon = new DataRespon(),
-		this.state={
-			result: ''
-		}
-	}
-	onLoad() {
-		let url = this.getUrl(this.text)
-		this.DataRespon.getFetchRespon(url)
-			.then(result=>{
-				this.setState({
-					result: JSON.stringify(result)
-				})
-			})
-			.catch(error =>{
-				this.setState({
-					result: JSON.stringify(error)
-				})
-			})
-	}
-	getUrl(key) {
-		return URL+key+QUREY_STR;
-	}
+  // constructor(props){
+  //   super(props);
+  //   this.DataRespon = new DataRespon();
+  //   this.state={
+	// 		result: ''
+	// 	}
+  // }
+  // onLoad() {
+  //   let url = URL+this.props.tabLabel+QUREY_STR;
+  //   this.DataRespon.getFetchRespon(url)
+  //     .then(result=>{
+  //       this.setState({
+  //         result: JSON.stringify(result)
+  //       })
+  //     })
+  //     .catch(error =>{
+  //       this.setState({
+  //         result: JSON.stringify(error)
+  //       })
+  //     })
+  // }
 	render() {
 		return(
 			<View style={styles.container}>
@@ -44,10 +41,10 @@ export default class PopularPage extends React.Component {
 					statusBar={{backgroundColor:'red'}}
 				/>
 				<ScrollableTabView renderTabBar={()=><ScrollableTabBar/>}>
-					<Text tabLabel='JAVA'>JAVA</Text>
-					<Text tabLabel='IOS'>IOS</Text>
-					<Text tabLabel='Android'>Android</Text>
-					<Text tabLabel='JavaScript'>JavaScript</Text>
+					<PopularTab tabLabel='JAVA'>JAVA</PopularTab>
+					<PopularTab tabLabel='IOS'>IOS</PopularTab>
+					<PopularTab tabLabel='Android'>Android</PopularTab>
+					<PopularTab tabLabel='JavaScript'>JavaScript</PopularTab>
 				</ScrollableTabView>
 				{/* <Text style={styles.tips} onPress={() => {this.onLoad()}}>获取数据</Text>
 				<TextInput
@@ -59,6 +56,40 @@ export default class PopularPage extends React.Component {
 		)
 	}
 }
+
+class PopularTab extends React.Component {
+  constructor(props){
+    super(props);
+    this.DataRespon = new DataRespon();
+    this.state={
+			result: ''
+		}
+  }
+  componentDidMount() {
+    this.onLoad()
+  }
+  onLoad() {
+    let url = URL+this.props.tabLabel+QUREY_STR;
+    this.DataRespon.getFetchRespon(url)
+      .then(result=>{
+        this.setState({
+          result: JSON.stringify(result)
+        })
+      })
+      .catch(error =>{
+        this.setState({
+          result: JSON.stringify(error)
+        })
+      })
+  }
+	render() {
+    return(
+     <View>
+       <Text style={{height:600}}>{this.state.result}</Text>
+     </View>
+    )
+  }
+} 
 
 const styles = StyleSheet.create({
 	container: {
