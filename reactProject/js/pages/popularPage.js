@@ -3,7 +3,7 @@ import {
     Text,
     View,
     StyleSheet,
-    TextInput
+    ListView
 } from 'react-native';
 import NavigatorBar from '../NavigatorBar'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
@@ -12,27 +12,6 @@ const URL = 'https://api.github.com/search/repositories?q='
 const QUREY_STR='&sort=stars'
 
 export default class PopularPage extends React.Component {
-  // constructor(props){
-  //   super(props);
-  //   this.DataRespon = new DataRespon();
-  //   this.state={
-	// 		result: ''
-	// 	}
-  // }
-  // onLoad() {
-  //   let url = URL+this.props.tabLabel+QUREY_STR;
-  //   this.DataRespon.getFetchRespon(url)
-  //     .then(result=>{
-  //       this.setState({
-  //         result: JSON.stringify(result)
-  //       })
-  //     })
-  //     .catch(error =>{
-  //       this.setState({
-  //         result: JSON.stringify(error)
-  //       })
-  //     })
-  // }
 	render() {
 		return(
 			<View style={styles.container}>
@@ -61,19 +40,23 @@ class PopularTab extends React.Component {
   constructor(props){
     super(props);
     this.DataRespon = new DataRespon();
+    
     this.state={
-			result: ''
-		}
+      result: '',
+      dataSource: new ListView.DataSource({rowHasChanged:(r1,r2) => r1 !== r2})
+    }
   }
+
   componentDidMount() {
     this.onLoad()
   }
+
   onLoad() {
     let url = URL+this.props.tabLabel+QUREY_STR;
     this.DataRespon.getFetchRespon(url)
       .then(result=>{
         this.setState({
-          result: JSON.stringify(result)
+          dataSource: this.state.dataSource.cloneWithRows(result.items)
         })
       })
       .catch(error =>{
@@ -82,10 +65,24 @@ class PopularTab extends React.Component {
         })
       })
   }
+  renderRow(data){
+    return(
+      <View>
+        <Text>{data.full_name}</Text>
+        <Text>{data.description}</Text>
+        <Text>{data.owner.avatar_url}</Text>
+        <Text>{data.stargazers_count}</Text>
+      </View>
+    )
+  }
+
 	render() {
     return(
      <View>
-       <Text style={{height:600}}>{this.state.result}</Text>
+       <ListView
+        dataSource={this.state.dataSource}
+        renderRow={(data)=>this.renderRow(data)}
+       ></ListView>
      </View>
     )
   }
