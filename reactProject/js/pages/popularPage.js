@@ -6,6 +6,7 @@ import {
     ListView
 } from 'react-native';
 import NavigatorBar from '../NavigatorBar'
+import ResCell from './resposityCell'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 import DataRespon from '../expand/DataRespository'
 const URL = 'https://api.github.com/search/repositories?q='
@@ -67,12 +68,7 @@ class PopularTab extends React.Component {
   }
   renderRow(data){
     return(
-      <View>
-        <Text>{data.full_name}</Text>
-        <Text>{data.description}</Text>
-        <Text>{data.owner.avatar_url}</Text>
-        <Text>{data.stargazers_count}</Text>
-      </View>
+      <ResCell data={data}/>
     )
   }
 
