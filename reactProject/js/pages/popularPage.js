@@ -18,9 +18,13 @@ export default class PopularPage extends React.Component {
 			<View style={styles.container}>
 				<NavigatorBar
 					title='最热'
-					statusBar={{backgroundColor:'red'}}
+          //statusBar={{backgroundColor:'#2196f3'}}
 				/>
-				<ScrollableTabView renderTabBar={()=><ScrollableTabBar/>}>
+        <ScrollableTabView 
+          tabBarBackgroundColor="#2196f3"
+          tabBarActiveTextColor="#fff"
+          tabBarUnderlineStyle={{backgroundColor:'#e7e7e7',height: 2}}
+          renderTabBar={()=><ScrollableTabBar/>}>
 					<PopularTab tabLabel='JAVA'>JAVA</PopularTab>
 					<PopularTab tabLabel='IOS'>IOS</PopularTab>
 					<PopularTab tabLabel='Android'>Android</PopularTab>

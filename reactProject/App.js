@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   page1: {
     flex: 1,
-    backgroundColor: '#c33',
+    backgroundColor: '#2196f3',
   },
   page2: {
     flex: 1,

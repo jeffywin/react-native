@@ -45,6 +45,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: 0.5,
     borderRadius: 2,
+    borderColor: '#ddd',
+    shadowColor: 'gray',//ios
+    shadowOffset: {width:2,height:1},
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+    elevation: 2, //android
   },
   title: {
     fontSize: 16,

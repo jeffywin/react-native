@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   Platform,
   StatusBar,
@@ -35,6 +34,7 @@ export default class NavigationBar extends Component {
 
   static defaultProps = {
     statusBar: {
+      backgroundColor: '#2196f3',
       barStyle: 'light-content',
       hidden: false
     }
@@ -70,7 +70,7 @@ export default class NavigationBar extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#c33',
+    backgroundColor: '#2196f3',
   },
   navBar: {
     flexDirection: 'row',

@@ -31,7 +31,7 @@ export default class Girl extends React.Component {
         <View style={styles.container}>
           <NavigationBar
             title='Girl'
-            statusBar={{backgroundColor:'red'}}
+            statusBar={{backgroundColor:'#2196f3'}}
             leftButton={
               this.renderButton(require('../res/images/ic_arrow_back_white_36pt.png'))
             }

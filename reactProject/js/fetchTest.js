@@ -51,7 +51,7 @@ export default class Boy extends React.Component {
       <View style={styles.container}>
         <NavigationBar
           title='fetchTest'
-          statusBar={{backgroundColor:'red'}}
+          statusBar={{backgroundColor:'#2196f3'}}
         />
         <Text
           onPress={() => {this.getData('http://rapapi.org/mockjsdata/34682/getData')}}

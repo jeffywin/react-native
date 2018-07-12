@@ -20,7 +20,7 @@ export default class welcomePage extends React.Component {
 			<View style={styles.container}>
 			<NavigationBar
         title='欢迎页面'
-        statusBar={{backgroundColor:'red'}}
+        statusBar={{backgroundColor:'#2196f3'}}
       />
 				<Text>欢迎页面</Text>
 			</View>
