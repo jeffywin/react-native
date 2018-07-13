@@ -3,7 +3,8 @@ import {
     Text,
     View,
     StyleSheet,
-    ListView
+    ListView,
+    RefreshControl
 } from 'react-native';
 import NavigatorBar from '../NavigatorBar'
 import ResCell from './resposityCell'
@@ -48,7 +49,8 @@ class PopularTab extends React.Component {
     
     this.state={
       result: '',
-      dataSource: new ListView.DataSource({rowHasChanged:(r1,r2) => r1 !== r2})
+      dataSource: new ListView.DataSource({rowHasChanged:(r1,r2) => r1 !== r2}),
+      isLoading: false
     }
   }
 
@@ -57,11 +59,15 @@ class PopularTab extends React.Component {
   }
 
   onLoad() {
+    this.setState({
+      isLoading: true
+    })
     let url = URL+this.props.tabLabel+QUREY_STR;
     this.DataRespon.getFetchRespon(url)
       .then(result=>{
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(result.items)
+          dataSource: this.state.dataSource.cloneWithRows(result.items),
+          isLoading: false
         })
       })
       .catch(error =>{
@@ -78,10 +84,15 @@ class PopularTab extends React.Component {
 
 	render() {
     return(
-     <View>
+     <View style={styles.container}>
        <ListView
         dataSource={this.state.dataSource}
         renderRow={(data)=>this.renderRow(data)}
+        refreshControl={<RefreshControl
+          refreshing={this.state.isLoading}
+          onRefresh={() => this.onLoad()}
+          title={'...isLoading'}
+        />}
        ></ListView>
      </View>
     )

@@ -30,7 +30,7 @@ export default class App extends Component<Props> {
             selected={this.state.selectedTab === 'tb_popular'}
             title="最热"
             renderIcon={() => <Image style={styles.image} source={require('../../res/images/ic_polular.png')} />}
-            renderSelectedIcon={() => <Image style={[styles.image,{tintColor:'#c33'}]} source={require('../../res/images/ic_polular.png')} />}
+            renderSelectedIcon={() => <Image style={[styles.image,{tintColor:'#2196f3'}]} source={require('../../res/images/ic_polular.png')} />}
             badgeText="1"
             onPress={() => this.setState({ selectedTab: 'tb_popular' })}>
             <PopularPage />
