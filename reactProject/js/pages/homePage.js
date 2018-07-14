@@ -11,6 +11,7 @@ import {
   View
 } from 'react-native';
 import PopularPage from './popularPage'
+import Mine from './mine'
 import TabNavigator from 'react-native-tab-navigator'
 
 type Props = {};
@@ -57,7 +58,8 @@ export default class App extends Component<Props> {
               renderIcon={() => <Image style={styles.image} source={require('../../res/images/ic_my.png')} />}
               renderSelectedIcon={() => <Image style={[styles.image,{tintColor:'#ccc'}]} source={require('../../res/images/ic_my.png')} />}
               onPress={() => this.setState({ selectedTab: 'tb_my' })}>
-            <View style={styles.page2}></View>
+            {/* <View style={styles.page2}></View> */}
+            <Mine />
           </TabNavigator.Item>
         </TabNavigator>
       </View>

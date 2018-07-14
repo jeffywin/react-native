@@ -23,7 +23,8 @@ export default class PopularPage extends React.Component {
 				/>
         <ScrollableTabView 
           tabBarBackgroundColor="#2196f3"
-          tabBarActiveTextColor="#fff"
+          tabBarActiveTextColor="#fff"//激活状态下横线颜色
+          tabBarInactiveTextColor='mintcream'
           tabBarUnderlineStyle={{backgroundColor:'#e7e7e7',height: 2}}
           renderTabBar={()=><ScrollableTabBar/>}>
 					<PopularTab tabLabel='JAVA'>JAVA</PopularTab>
