@@ -5,9 +5,9 @@ import {
   View
 } from 'react-native';
 import keys from '../../res/data/keys.json'
-export var FLAG_LANGUAGE = {flag_language:'flag_language_language',flag_key:'flag_language_key'}
+export var FLAG_LANGUAGE = {flag_language: 'language_dao_language', flag_key: 'language_dao_key'}
 export default class Language {
-    constructor(flag){
+    constructor(flag){//父页面传过来
         this.flag = flag
     }
     fetch(){
@@ -23,7 +23,7 @@ export default class Language {
                   reject(error)
                 }
               }else {
-                var data = this.flag = FLAG_LANGUAGE.flag_key ? keys : null
+                var data = this.flag === FLAG_LANGUAGE.flag_key ? keys : null
                 this.save(data)
                 resolve(data)
               }
@@ -32,6 +32,7 @@ export default class Language {
         })
     }
     save(data) {
-      AsyncStorage.setItem(this.flag,JSON.stringify(data))
+      var stringData=JSON.stringify(data);
+      AsyncStorage.setItem(this.flag,stringData,(error,result)=>{} )
     }
 }

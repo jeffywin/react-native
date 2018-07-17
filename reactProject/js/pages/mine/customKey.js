@@ -10,7 +10,7 @@ import Language,{FLAG_LANGUAGE} from '../../expand/Language'
 export default class CustomKey extends React.Component {
   constructor(props) {
     super(props);
-    this.language = new Language(FLAG_LANGUAGE.flag_key)
+    this.language = new Language(FLAG_LANGUAGE.flag_key)//实例化
     this.state={
       dataArray:[]
     }
