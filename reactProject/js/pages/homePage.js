@@ -59,7 +59,8 @@ export default class App extends Component<Props> {
               renderSelectedIcon={() => <Image style={[styles.image,{tintColor:'#ccc'}]} source={require('../../res/images/ic_my.png')} />}
               onPress={() => this.setState({ selectedTab: 'tb_my' })}>
             {/* <View style={styles.page2}></View> */}
-            <Mine />
+            <Mine {...this.props}/> 
+            {/* 子页面this.porps.navigator跳转错误，需传入this.props */}
           </TabNavigator.Item>
         </TabNavigator>
       </View>

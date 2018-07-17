@@ -48,7 +48,7 @@ export default class NavigationBar extends Component {
   }
 
   render() {
-    let status = <View style={[styles.statusBar, this.props.statusBar]}>
+    let status = <View style={[styles.statusBar]}>
       <StatusBar {...this.props.statusBar}/>
     </View>
     let titleView = this.props.titleView ? this.props.titleView : <Text style={styles.title}>{this.props.title}</Text>
