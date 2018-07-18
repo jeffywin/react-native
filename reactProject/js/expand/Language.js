@@ -1,8 +1,8 @@
+// language类接收父类传过来的flag_key，假如AsyncStorage没有getItem没有结果，则先setItem存，存后过，下次就取
+
 import React, { Component } from 'react';
 import {
   AsyncStorage,
-  Text,
-  View
 } from 'react-native';
 import keys from '../../res/data/keys.json'
 export var FLAG_LANGUAGE = {flag_language: 'language_dao_language', flag_key: 'language_dao_key'}
