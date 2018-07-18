@@ -2,7 +2,7 @@
  * Created by jeffywin on 2018/6/7.
  */
 import React from 'react';
-import { Text, View, StyleSheet,TouchableOpacity,ScrollView,Image } from 'react-native';
+import { Text, View, StyleSheet,TouchableOpacity,ScrollView,Image,Alert } from 'react-native';
 import NavigationBar from '../../NavigatorBar'
 import ViewUitls from '../../utils/viewUtils'
 import Language,{FLAG_LANGUAGE} from '../../expand/Language'//asyncStory存储
@@ -38,7 +38,19 @@ export default class CustomKey extends React.Component {
   }
 
 	back() {
-		this.props.navigator.pop()
+    // console.log(this.itemArr)
+    // if(this.itemArr.length === 0) {//用户没做修改
+    //   this.props.navigator.pop()
+    // }
+		Alert.alert(
+      '提示',
+      '要保存修改吗？',
+      [
+        {text: '不保存', onPress: () => this.props.navigator.pop(), style: 'cancel'},
+        {text: '保存', onPress: () => this.onSave()},
+      ],
+      { cancelable: false }
+    )
   }
   renderCheckBox(data) {
     return (

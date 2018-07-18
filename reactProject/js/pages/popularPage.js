@@ -10,28 +10,55 @@ import NavigatorBar from '../NavigatorBar'
 import ResCell from './resposityCell'
 import ScrollableTabView, {ScrollableTabBar} from 'react-native-scrollable-tab-view'
 import DataRespon from '../expand/DataRespository'
+import Language,{FLAG_LANGUAGE} from '../expand/Language'
 const URL = 'https://api.github.com/search/repositories?q='
 const QUREY_STR='&sort=stars'
 
 export default class PopularPage extends React.Component {
+  constructor(props){
+    super(props);
+    this.language = new Language(FLAG_LANGUAGE.flag_key)
+    this.state={
+      lanArr: []
+    }
+  }
+  componentDidMount(){
+    this.loadData()
+  }
+  loadData() {
+    this.language.fetch()
+      .then(result => {
+        this.setState({
+          lanArr: result
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 	render() {
+    let content = this.state.lanArr.length > 0 ? ( <ScrollableTabView 
+      tabBarBackgroundColor="#2196f3"
+      tabBarActiveTextColor="#fff"//激活状态下横线颜色
+      tabBarInactiveTextColor='mintcream'
+      tabBarUnderlineStyle={{backgroundColor:'#e7e7e7',height: 2}}
+      renderTabBar={()=><ScrollableTabBar/>}>
+
+    {this.state.lanArr.map((v,i)=>{
+      return v.checked ? <PopularTab key={i} tabLabel={v.name}></PopularTab> : null
+    })}  
+      {/* <PopularTab tabLabel='JAVA'>JAVA</PopularTab>
+      <PopularTab tabLabel='IOS'>IOS</PopularTab>
+      <PopularTab tabLabel='Android'>Android</PopularTab>
+      <PopularTab tabLabel='JavaScript'>JavaScript</PopularTab> */}
+    </ScrollableTabView>) : null
 		return(
 			<View style={styles.container}>
 				<NavigatorBar
 					title='最热'
           //statusBar={{backgroundColor:'#2196f3'}}
 				/>
-        <ScrollableTabView 
-          tabBarBackgroundColor="#2196f3"
-          tabBarActiveTextColor="#fff"//激活状态下横线颜色
-          tabBarInactiveTextColor='mintcream'
-          tabBarUnderlineStyle={{backgroundColor:'#e7e7e7',height: 2}}
-          renderTabBar={()=><ScrollableTabBar/>}>
-					<PopularTab tabLabel='JAVA'>JAVA</PopularTab>
-					<PopularTab tabLabel='IOS'>IOS</PopularTab>
-					<PopularTab tabLabel='Android'>Android</PopularTab>
-					<PopularTab tabLabel='JavaScript'>JavaScript</PopularTab>
-				</ScrollableTabView>
+        {content}
 				{/* <Text style={styles.tips} onPress={() => {this.onLoad()}}>获取数据</Text>
 				<TextInput
 					style={{height:20,borderWidth: 1}}
