@@ -8,7 +8,7 @@ import {
   } from 'react-native';
 
   export default class ViewUtils {
-      static getLeftButton(callback) {
+      static getLeftButton(callback) {//导航栏左部按钮
           return <TouchableOpacity
                   onPress={callback}
                 >
